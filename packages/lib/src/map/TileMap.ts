@@ -4,7 +4,7 @@
  *@date: 2023-04-06
  */
 
-import { Camera, Clock, ColorRepresentation, Intersection, Object3D, Vector2, Vector3 } from "three";
+import { Camera, Timer, ColorRepresentation, Intersection, Object3D, Vector2, Vector3 } from "three";
 import { BoundsType } from "../loader";
 import { ISource } from "../source";
 import { Tile } from "../tile";
@@ -59,7 +59,7 @@ export class TileMap extends Object3D<TileMapEventMap> {
 	public debug = 0;
 
 	/** 瓦片树更新时钟 */
-	private readonly _mapClock = new Clock();
+	private readonly _mapTimer = new Timer();
 
 	/** 是否为LOD模型（LOD模型，当autoUpdate为真时渲染时会自动调用update方法）*/
 	public readonly isLOD = true;
@@ -307,8 +307,8 @@ export class TileMap extends Object3D<TileMapEventMap> {
 	 * @param camera 摄像机
 	 */
 	public update(camera: Camera) {
-		const elapseTime = this._mapClock.getElapsedTime();
-		// 控制瓦片树更新速率
+		this._mapTimer.update();
+		const elapseTime = this._mapTimer.getElapsed();
 		if (elapseTime > this.updateInterval / 1000) {
 			this.rootTile.update({
 				camera,
@@ -317,11 +317,10 @@ export class TileMap extends Object3D<TileMapEventMap> {
 				maxLevel: this.maxLevel,
 				LODThreshold: this.LODThreshold,
 			});
-			// shadow
 			this.rootTile.castShadow = this.castShadow;
 			this.rootTile.receiveShadow = this.receiveShadow;
 			this.dispatchEvent({ type: "update", delta: elapseTime });
-			this._mapClock.start();
+			this._mapTimer.reset();
 		}
 	}
 

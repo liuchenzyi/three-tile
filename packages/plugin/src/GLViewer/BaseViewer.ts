@@ -7,7 +7,7 @@
 import {
 	AmbientLight,
 	BaseEvent,
-	Clock,
+	Timer,
 	Color,
 	DirectionalLight,
 	EventDispatcher,
@@ -54,7 +54,7 @@ export class BaseViewer extends EventDispatcher<ViewerEventMap> {
 	public readonly ambLight: AmbientLight;
 	public readonly dirLight: DirectionalLight;
 
-	public readonly clock: Clock = new Clock();
+	public readonly timer: Timer = new Timer();
 	public container?: HTMLElement;
 
 	/** Container width */
@@ -87,6 +87,7 @@ export class BaseViewer extends EventDispatcher<ViewerEventMap> {
 		this.dirLight = this.createDirLight();
 		this.scene.add(this.ambLight);
 		this.scene.add(this.dirLight);
+		this.timer.connect(document);
 		this.renderer.setAnimationLoop(this.animate.bind(this));
 	}
 
@@ -200,8 +201,9 @@ export class BaseViewer extends EventDispatcher<ViewerEventMap> {
 	 * Threejs animation loop
 	 */
 	public animate() {
+		this.timer.update();
 		this.update();
-		this.dispatchEvent({ type: "update", delta: this.clock.getDelta() });
+		this.dispatchEvent({ type: "update", delta: this.timer.getDelta() });
 		teweenUpdate();
 	}
 }
