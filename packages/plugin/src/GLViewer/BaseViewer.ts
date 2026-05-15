@@ -7,13 +7,13 @@
 import {
 	AmbientLight,
 	BaseEvent,
-	Timer,
 	Color,
 	DirectionalLight,
 	EventDispatcher,
 	FogExp2,
 	PerspectiveCamera,
 	Scene,
+	Timer,
 	WebGLRenderer,
 } from "three";
 
@@ -146,7 +146,7 @@ export class BaseViewer extends EventDispatcher<ViewerEventMap> {
 	 * @returns camera
 	 */
 	protected createCamera() {
-		const camera = new PerspectiveCamera(70, 1, 0.1, 5e7);
+		const camera = new PerspectiveCamera(75, 1, 0.1, 5e7);
 		camera.position.set(0, 2.8e7, 0);
 		return camera;
 	}
@@ -156,8 +156,7 @@ export class BaseViewer extends EventDispatcher<ViewerEventMap> {
 	 * @returns AmbientLight
 	 */
 	protected createAmbLight() {
-		const ambLight = new AmbientLight(0xffffff, 1);
-		return ambLight;
+		return new AmbientLight(0xffffff, 2);
 	}
 
 	/**

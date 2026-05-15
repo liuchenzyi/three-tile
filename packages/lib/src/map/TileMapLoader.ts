@@ -15,7 +15,7 @@ export class TileMapLoader extends TileLoader implements ITileMapLoader {
 
 	constructor() {
 		super();
-		console.log(this);
+		// console.log(this);
 	}
 
 	public get imgSource() {

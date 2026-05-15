@@ -16,7 +16,7 @@ import { TileMapControls } from "./TileMapControls";
 export class GLViewer extends BaseViewer {
 	public controls: TileMapControls = this._createControls();
 
-	private _fogFactor = 1.0;
+	private _fogFactor = 0.0;
 
 	/** Get fog factor */
 	public get fogFactor() {
