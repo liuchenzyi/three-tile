@@ -2,7 +2,6 @@ import * as tt from "three-tile";
 import * as plugin from "three-tile-plugin";
 
 const {
-	ArcGisDemSource,
 	ArcGisSource,
 	BingSource,
 	GDSource,
@@ -32,28 +31,6 @@ export const mapBoxImgSource = new MapBoxSource({
 	dataType: "image",
 	style: "mapbox.satellite",
 });
-export const mapBoxDemSource = new MapBoxSource({
-	token: MAPBOXKEY,
-	dataType: "terrain-rgb",
-	style: "mapbox.terrain-rgb",
-	minLevel: 5,
-	maxLevel: 15,
-});
-export const mapBoxDemTestSource = new MapBoxSource({
-	token: MAPBOXKEY,
-	dataType: "image",
-	style: "mapbox.terrain-rgb",
-	minLevel: 5,
-	maxLevel: 15,
-});
-
-export const mapBoxMartiniSource = new MapBoxSource({
-	token: MAPBOXKEY,
-	dataType: "terrain-rgb-martini",
-	style: "mapbox.terrain-rgb",
-	maxLevel: 15,
-});
-
 // 中科星图
 const ZKXTKEY = "fa74f216c7265ac713a224dcd0a4d0f20e27b61051ed729b587111b4c410528b";
 export const xtImgSource = new ZKXTSource({
@@ -68,23 +45,6 @@ export const xtCiaSource = new ZKXTSource({
 	style: "cia",
 	format: "webp",
 });
-export const xtDemSource = new ZKXTSource({
-	token: ZKXTKEY,
-	dataType: "terrain-rgb",
-	style: "terrain_rgb",
-	format: "png",
-	minLevel: 5,
-	maxLevel: 10,
-});
-export const xtDemTestSource = new ZKXTSource({
-	token: ZKXTKEY,
-	dataType: "image",
-	style: "terrain_rgb",
-	format: "png",
-	minLevel: 5,
-	maxLevel: 10,
-});
-
 export const xtQmSource = new ZKXTQMSource({
 	token: ZKXTKEY,
 });
@@ -97,21 +57,6 @@ export const mapTilerImgSource = new MapTilerSource({
 	style: "satellite",
 	format: "jpg",
 });
-export const mapTilerDemSource = new MapTilerSource({
-	token: MAPTILERKEY,
-	dataType: "terrain-rgb",
-	style: "terrain-rgb",
-	format: "png",
-	maxLevel: 12,
-});
-export const mapTilerDemTestSource = new MapTilerSource({
-	token: MAPTILERKEY,
-	dataType: "image",
-	style: "terrain-rgb",
-	format: "png",
-	maxLevel: 12,
-});
-
 // Stadia
 export const stadiamaps = new StadiaSource();
 
@@ -158,7 +103,6 @@ export const gdImgLabelSource = new GDSource({ style: "8" });
 
 // arcgis
 export const arcGisImgSource = new ArcGisSource();
-export const arcGisDemSource = new ArcGisDemSource();
 export const arcGisCiaSource = new ArcGisSource({
 	style: "Reference/World_Boundaries_and_Places",
 });
@@ -183,21 +127,6 @@ export const singleImage = new tt.TileSource({
 	url: "./image/qinling.png",
 	maxLevel: 20,
 	bounds: [108.68808746337891, 33.92199531197548, 108.88240814208984, 34.05727051198483],
-});
-
-export const singleTif = new tt.TileSource({
-	dataType: "single-tif",
-	url: "./image/qinling.tif",
-	maxLevel: 20,
-	bounds: singleImage.bounds, //[108.68808746337891, 33.92199531197548, 108.88240814208984, 34.05727051198483],
-});
-
-export const tiffDEM = new tt.TileSource({
-	dataType: "single-tif",
-	url: "./image/dem.tif",
-	maxLevel: 20,
-	// skirtHeight: 1000,
-	bounds: [111.16267204284668, 21.59287851485902, 111.23897552490234, 21.64825416643841],
 });
 
 export const mvtTest = new plugin.MVTSource({

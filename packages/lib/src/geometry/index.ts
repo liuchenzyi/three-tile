@@ -4,8 +4,4 @@
  *@date: 2023-04-05
  */
 
-export * from "./GeometryDataTypes";
-export * from "./MartiniGeometry";
 export * from "./TileGeometry";
-export * from "./skirt";
-export * from "./Martini";

@@ -56,7 +56,6 @@ export const createSourceGui = (gui: GUI, viewer: plugin.GLViewer, map: tt.TileM
 		},
 		setTdt_c: () => {
 			map.imgSource = [ms.tdtImgSource_c, ms.debugSource];
-			map.demSource = undefined;
 		},
 		setGD: () => {
 			map.imgSource = [ms.gdImgSource, ms.gdImgLabelSource];
@@ -77,34 +76,7 @@ export const createSourceGui = (gui: GUI, viewer: plugin.GLViewer, map: tt.TileM
 			});
 		},
 
-		// terrain
-		setMapBoxDem: () => {
-			map.demSource = ms.mapBoxDemSource;
-		},
-		setMapTilerDem: () => {
-			map.demSource = ms.mapTilerDemSource;
-		},
-		setZkXtDem: () => {
-			map.demSource = ms.xtDemSource;
-		},
-		setDemNull: () => {
-			map.demSource = undefined;
-		},
-
-		setArcgisLerc() {
-			map.demSource = ms.arcGisDemSource;
-		},
-
 		// test
-		setMapBoxDemTest: () => {
-			map.imgSource = [ms.mapBoxDemTestSource, ms.debugSource];
-		},
-		setMapTilerDemTest: () => {
-			map.imgSource = [ms.mapTilerDemTestSource, ms.debugSource];
-		},
-		setZkxtDemTest: () => {
-			map.imgSource = [ms.xtDemTestSource, ms.debugSource];
-		},
 		setTileTest: () => {
 			map.imgSource = [ms.mapBoxImgSource, ms.debugSource];
 		},
@@ -137,17 +109,7 @@ export const createSourceGui = (gui: GUI, viewer: plugin.GLViewer, map: tt.TileM
 				maxLevel: 15,
 			});
 
-			const demSource = tt.TileSource.create({
-				dataType: "terrain-rgb",
-				url: urlPrefix + "/dem/{z}/{x}/{y}.png",
-				bounds,
-				minLevel: 5,
-				maxLevel: 15,
-			});
-
 			map.imgSource = [ms.arcGisImgSource, imgSource, ms.debugSource];
-			// map.imgSource = imgSource;
-			map.demSource = demSource;
 
 			// Move the camera to the bounds
 			viewer.controls.target.copy(map.geo2world(new Vector3(108.627984, 30.66284, 0.0)));
@@ -155,7 +117,6 @@ export const createSourceGui = (gui: GUI, viewer: plugin.GLViewer, map: tt.TileM
 		},
 		setSingleImage() {
 			map.imgSource = [ms.arcGisImgSource, ms.singleImage];
-			map.demSource = ms.singleTif;
 			const [minX, minY, maxX, maxY] = ms.singleImage.bounds!;
 			const center = [(minX + maxX) / 2, (minY + maxY) / 2];
 			viewer.flyTo(
@@ -166,21 +127,6 @@ export const createSourceGui = (gui: GUI, viewer: plugin.GLViewer, map: tt.TileM
 
 		setQm() {
 			map.imgSource = [ms.arcGisImgSource, tt.TileSource.create({ dataType: "wireframe", opacity: 0.3 })];
-			// map.imgSource = [ms.tdtImgSource_c, tt.TileSource.create({ dataType: "wireframe", opacity: 0.3 })];
-
-			map.demSource = tt.TileSource.create({
-				dataType: "quantized-mesh",
-				// url: "./tiles/layer/{z}/{x}/{y}.terrain",
-				url: "./tiles/layer/14/26302/11288.terrain",
-				// url: "https://api.maptiler.com/tiles/terrain-quantized-mesh-v2/" +
-				// 	"{z}/{x}/{y}.terrain?key=FQHg9Gb5IgjIGLFg7tKz",
-				// url: "https://assets.ion.cesium.com/ap-northeast-1/asset_depot/1/" +
-				// 	"CesiumWorldTerrain/v1.2/{z}/{x}/{y}.terrain?" +
-				// 	"extensions=octvertexnormals-watermask-metadata&v=1.2.0",
-				// url: "/qm/terrain/{z}/{x}/{y}.terrain",
-				// bounds: [-124.7333, 24.5333, -67.95, 49.3833],
-				maxLevel: 15,
-			});
 		},
 
 		setGeoJSON() {
@@ -194,9 +140,8 @@ export const createSourceGui = (gui: GUI, viewer: plugin.GLViewer, map: tt.TileM
 
 		setTif: () => {
 			map.imgSource = [ms.arcGisImgSource];
-			map.demSource = ms.tiffDEM;
 
-			const bounds = ms.tiffDEM.bounds!;
+			const bounds = undefined;
 			const sw = map.geo2world(new Vector3(bounds[0], bounds[1]));
 			const ne = map.geo2world(new Vector3(bounds[2], bounds[3]));
 
@@ -234,12 +179,6 @@ export const createSourceGui = (gui: GUI, viewer: plugin.GLViewer, map: tt.TileM
 
 		setWms2: () => {
 			map.imgSource = [ms.arcGisImgSource, ms.wmsTest2];
-		},
-
-		setElevation: () => {
-			map.imgSource = tt.TileSource.create({
-				dataType: "elevation",
-			});
 		},
 
 		setBackground: () => {
@@ -280,29 +219,16 @@ export const createSourceGui = (gui: GUI, viewer: plugin.GLViewer, map: tt.TileM
 	imgFolder.add(vm, "setWms1").name("WMS服务测试1");
 	imgFolder.add(vm, "setWms2").name("WMS服务测试2");
 
-	// 地形数据源
-	const demFolder = folder.addFolder("地形数据");
-	demFolder.add(vm, "setDemNull").name("无地形");
-	demFolder.add(vm, "setMapBoxDem").name("Mapbox(maxLevel=15)");
-	demFolder.add(vm, "setMapTilerDem").name("MapTiler(maxLevel=12)");
-	// demFolder.add(vm, "setZkXtDem").name("ZKXT(maxLevel=10)");
-	demFolder.add(vm, "setArcgisLerc").name("ArcGis-LERC(maxLevel=13)");
-
 	// 测试数据
 	const testFolder = folder.addFolder("测试数据");
 	testFolder.add(vm, "setTileTest").name("MapBox影像调试");
-	testFolder.add(vm, "setMapBoxDemTest").name("MapBox地形调试");
-	testFolder.add(vm, "setMapTilerDemTest").name("MapTiler地形调试");
-	// testFolder.add(vm, "setZkxtDemTest").name("中科星图Terrain+debug");
 	testFolder.add(vm, "setLogoTest").name("Logo测试");
 	testFolder.add(vm, "setTileWire").name("地形模型网格测试");
-	testFolder.add(vm, "setTileNormal").name("地形法向量调试");
+	testFolder.add(vm, "setTileNormal").name("法向量调试");
 	testFolder.add(vm, "setBoundsTile").name("地图范围控制");
 	testFolder.add(vm, "setSingleImage").name("单图片影像测试");
-	testFolder.add(vm, "setTif").name("单TIFF地形测试");
 	testFolder.add(vm, "setGeoJSONMask").name("GeoJSON遮罩-延安");
 	testFolder.add(vm, "setGDRoad").name("高德路网");
-	testFolder.add(vm, "setElevation").name("Elevator测试");
 	// testFolder.add(vm, "setQm").name("quantized-mesh test");
 	testFolder.add(vm, "setBackground").name("背景测试");
 

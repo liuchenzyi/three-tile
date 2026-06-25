@@ -23,9 +23,6 @@ export * from "./TileLoader";
 // texture loader
 // export * from "./TileTextureLoader";
 
-// tile geometry loader base class
-export * from "./TileGeometryLoader";
-
 export * from "./TileMaterialLoader";
 
 // Canvas loader. 画布加载器
@@ -33,12 +30,3 @@ export * from "./TileCanvasLoader";
 
 // tile raster image loader. 通用影像材质瓦片加载器
 export * from "./tileImageLoader";
-
-// ArcGis lerc loader. ArcGis lerc格式地形瓦片加载器
-export * from "./terrainLercLoader";
-
-// Mapbox terrain-rgb loader. Mapbox terrain-rgb格式地形瓦片加载器
-export * from "./terrainRGBLoader";
-
-// Mapbox terrain-dem loader. Mapbox terrain-dem格式地形瓦片加载器
-export * from "./terrainDEMLoader";

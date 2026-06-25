@@ -74,6 +74,13 @@ export class TileSource implements ISource {
 		Object.assign(this, options);
 	}
 
+	/**
+	 * 根据瓦片坐标计算该瓦片在Web墨卡托投影下的边界框
+	 * @param x - 瓦片的列号（X坐标）
+	 * @param y - 瓦片的行号（Y坐标）
+	 * @param z - 缩放级别（Zoom level）
+	 * @returns 格式为"minX,minY,maxX,maxY"的边界框字符串，单位为米
+	 */
 	private _getBBox(x: number, y: number, z: number) {
 		const worldSize = Math.PI * 6378137;
 		const tileSize = (2 * worldSize) / Math.pow(2, z);
@@ -88,6 +95,7 @@ export class TileSource implements ISource {
 	 * @param x tile x coordinate
 	 * @param y tile y coordinate
 	 * @param z tile z coordinate
+	 * @param obj
 	 * @returns url tile url
 	 */
 	public getUrl(x: number, y: number, z: number, obj?: { [name: string]: any }): string | undefined {

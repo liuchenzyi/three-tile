@@ -5,7 +5,7 @@
  */
 
 import { ISource } from "../source";
-import { ITileGeometryLoader, ITileMaterialLoader } from "./ITileLoaders";
+import { ITileMaterialLoader } from "./ITileLoaders";
 import { TileLoadingManager } from "./TileLoadingManager";
 
 const author = { name: "GuoJF" };
@@ -15,8 +15,6 @@ const author = { name: "GuoJF" };
  */
 export const LoaderFactory = {
 	manager: new TileLoadingManager(),
-	// Dict of dem loader
-	demLoaderMap: new Map<string, ITileGeometryLoader>(),
 	// Dict of img loader
 	imgLoaderMap: new Map<string, ITileMaterialLoader>(),
 
@@ -27,17 +25,6 @@ export const LoaderFactory = {
 	registerMaterialLoader(loader: ITileMaterialLoader) {
 		LoaderFactory.imgLoaderMap.set(loader.dataType, loader);
 		loader.info.author = loader.info.author ?? author.name;
-		// console.log(`* Register imageLoader: '${loader.dataType}', Author: '${loader.info.author}'`);
-	},
-
-	/**
-	 * Register geometry loader
-	 * @param loader geometry loader
-	 */
-	registerGeometryLoader(loader: ITileGeometryLoader) {
-		LoaderFactory.demLoaderMap.set(loader.dataType, loader);
-		loader.info.author = loader.info.author ?? author.name;
-		// console.log(`* Register terrainLoader: '${loader.dataType}', Author: '${loader.info.author}'`);
 	},
 
 	/**
@@ -56,28 +43,12 @@ export const LoaderFactory = {
 	},
 
 	/**
-	 * Get geometry loader from datasource
-	 * @param source datasouce
-	 * @returns geometry loader
-	 */
-	getGeometryLoader(source: ISource | string) {
-		const dataType = typeof source === "string" ? source : source.dataType;
-		const loader = LoaderFactory.demLoaderMap.get(dataType);
-		if (loader) {
-			return loader;
-		} else {
-			throw new Error(`Terrain source dataType("${dataType}") is not supported!`);
-		}
-	},
-
-	/**
 	 * Get all loaders
-	 * @returns Image loaders and terrain loaders
+	 * @returns Image loaders
 	 */
 	getLoaders() {
 		return {
 			imgLoaders: Array.from(LoaderFactory.imgLoaderMap.values()),
-			demLoaders: Array.from(LoaderFactory.demLoaderMap.values()),
 		};
 	},
 };

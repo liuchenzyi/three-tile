@@ -63,8 +63,6 @@ export interface ITileLoader {
 	manager: TileLoadingManager;
 	/** 影像数据加载器 */
 	imgSource: ISource[];
-	/** 地形数据加载器 */
-	demSource: ISource | undefined;
 	/** 投影ID */
 	projectionID: string;
 	/** 经纬度范围 */
@@ -100,17 +98,4 @@ export interface ITileMaterialLoader<TMaterial extends Material = Material> {
 	load(params: TileSourceLoadParamsType): Promise<TMaterial>;
 	/** 更新瓦片材质 */
 	// update?(material: Material): void;
-}
-
-/**
- * 瓦片几何体加载器接口, 用于加载瓦片地形
- */
-export interface ITileGeometryLoader<TGeometry extends BufferGeometry = BufferGeometry> {
-	// isGeometryLoader: true;
-	/** 加载器信息 */
-	info: ITileLoaderInfo;
-	/** 数据类型标记 */
-	dataType: string;
-	/** 加载地形数据 */
-	load(params: TileSourceLoadParamsType): Promise<TGeometry>;
 }

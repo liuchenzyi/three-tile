@@ -24,20 +24,8 @@ function registerLoader() {
 	tt.registerImgLoader(new plugin.MVTLoader());
 	// 注册单影像加载器
 	tt.registerImgLoader(new plugin.SingleImageLoader());
-	// 注册单影像TIF-DEM加载器
-	tt.registerDEMLoader(new plugin.SingleTifDEMLoader());
 	// 注册背景加载器
 	tt.registerImgLoader(new plugin.BackgroundLoader());
-
-	// 注册高程加载器
-	// const eleLoader = new plugin.ElevationLoader();
-	// tt.registerImgLoader(eleLoader);
-	// setInterval(() => {
-	// 	eleLoader.maxHeight += 10;
-	// 	if (eleLoader.maxHeight > 3500) {
-	// 		eleLoader.maxHeight = 10;
-	// 	}
-	// }, 10);
 
 	//===============================================================================
 
@@ -59,9 +47,6 @@ function registerLoader() {
 	loaders.imgLoaders.forEach(loader => {
 		console.log(`* 影像加载器: '${loader.dataType}' Author: '${loader.info.author}'`);
 	});
-	loaders.demLoaders.forEach(loader => {
-		console.log(`* 地形加载器: '${loader.dataType}', Author: '${loader.info.author}'`);
-	});
 	console.log("======================================================");
 }
 
@@ -70,15 +55,11 @@ function createMap() {
 	// 影像数据源
 	const imgSource = [source.arcGisImgSource, source.arcGisCiaSource];
 	// const imgSource = [ms.geojsonProvince, ms.geojsonCountry, ms.geojsonCity, ms.geojsonCityPoint];
-	// 地形数据源
-	const demSource = source.arcGisDemSource;
 
 	// 创建地图对象
 	const map = new tt.TileMap({
 		// 影像数据源
 		imgSource: imgSource,
-		// 高程数据源
-		demSource: demSource,
 		// 地图投影中央经线经度
 		lon0: 90,
 		// 最小缩放级别
@@ -214,8 +195,6 @@ function main() {
 	// });
 	// createGroundGroup(map);
 	// testShader();
-	// testDEMShader();
-
 	// addBounds(map);
 
 	// testPolyHole(map, viewer);

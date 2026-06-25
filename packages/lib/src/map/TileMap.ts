@@ -33,8 +33,6 @@ export type MapParams = {
 	rootTile?: Tile;
 	/** 影像数据源, image source */
 	imgSource: ISource[] | ISource;
-	/** 高程数据源, terrain source */
-	demSource?: ISource;
 	/**  地图经纬度范围  */
 	bounds?: BoundsType;
 	/** 地图最小缩放级别, maximum zoom level of the map */
@@ -158,26 +156,6 @@ export class TileMap extends Object3D<TileMapEventMap> {
 		this.dispatchEvent({ type: "source-changed", source: value });
 	}
 
-	/** 设置地形数据源 */
-	public get demSource(): ISource | undefined {
-		return this.loader.demSource;
-	}
-
-	/** 取得地形数据源 */
-	public set demSource(value: ISource | undefined) {
-		if (this.loader.demSource === value) {
-			return;
-		}
-
-		this.loader.demSource = value;
-
-		if (this.debug > 0) {
-			console.log("DEM Source Changed:", this.demSource);
-		}
-		this._updateSource();
-		this.dispatchEvent({ type: "source-changed", source: value });
-	}
-
 	private _LODThreshold = 1;
 	/** 取得LOD阈值	 */
 	public get LODThreshold() {
@@ -207,15 +185,6 @@ export class TileMap extends Object3D<TileMapEventMap> {
 		this.loader.maxThreads = value;
 	}
 
-	/** @deprecated 取得背景色 */
-	public get backgroundColor() {
-		return 0;
-	}
-	/** @deprecated 设置背景色 */
-	public set backgroundColor(value: ColorRepresentation) {
-		value;
-	}
-
 	/**
      * 地图创建工厂函数
        @param params 地图参数 {@link MapParams}
@@ -239,7 +208,6 @@ export class TileMap extends Object3D<TileMapEventMap> {
 			rootTile = new Tile(),
 			minLevel = 2,
 			imgSource,
-			demSource,
 			bounds,
 			lon0 = 0,
 			debug = 0,
@@ -256,7 +224,6 @@ export class TileMap extends Object3D<TileMapEventMap> {
 
 		// 数据源
 		this.imgSource = imgSource;
-		this.demSource = demSource;
 
 		// 模型加入地图
 		this.add(rootTile);
@@ -293,9 +260,6 @@ export class TileMap extends Object3D<TileMapEventMap> {
 	private _getMaxLevel() {
 		let maxLevel = 0;
 		this.imgSource.forEach(source => (maxLevel = Math.max(maxLevel, source.maxLevel)));
-		if (this.demSource) {
-			maxLevel = Math.max(maxLevel, this.demSource.maxLevel);
-		}
 		if (this.debug) {
 			console.log("Max Level:", maxLevel);
 		}

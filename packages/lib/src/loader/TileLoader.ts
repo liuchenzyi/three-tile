@@ -4,7 +4,7 @@
  *@date: 2023-04-06
  */
 
-import { BufferGeometry, Material, Mesh, MeshBasicMaterial, Texture } from "three";
+import { Material, Mesh, MeshBasicMaterial, Texture } from "three";
 import { TileGeometry } from "../geometry";
 import { ISource } from "../source";
 import { BoundsType, ITileLoader, TileLoadParamsType, TileMesh } from "./ITileLoaders";
@@ -52,16 +52,6 @@ export class TileLoader implements ITileLoader {
 		this._imgSource = value;
 	}
 
-	private _demSource: ISource | undefined;
-	/** Get terrain source */
-	public get demSource(): ISource | undefined {
-		return this._demSource;
-	}
-	/** Set terrain source */
-	public set demSource(value: ISource | undefined) {
-		this._demSource = value;
-	}
-
 	/** Get map prjection ID */
 	public get projectionID() {
 		return this.imgSource[0].projectionID;
@@ -90,14 +80,14 @@ export class TileLoader implements ITileLoader {
 	 * @returns Promise<TileMesh> tile mesh
 	 */
 	public async load(params: TileLoadParamsType): Promise<TileMesh> {
-		const count = (this.demSource ? 1 : 0) + this.imgSource.length;
+		const count = this.imgSource.length;
 		this._downloadingThreads += count;
 
 		let mesh: TileMesh;
 		try {
 			// load
 			const material = await this.loadMaterial(params);
-			const geometry = await this.loadGeometry(params);
+			const geometry = new TileGeometry();
 
 			// new mesh
 			mesh = new Mesh(geometry, material);
@@ -120,13 +110,13 @@ export class TileLoader implements ITileLoader {
 	 * @param tileMesh
 	 */
 	public async update(params: TileLoadParamsType, tileMesh: TileMesh) {
-		const count = (this.demSource ? 1 : 0) + this.imgSource.length;
+		const count = this.imgSource.length;
 		this._downloadingThreads += count;
 
 		try {
 			// load
 			const material = await this.loadMaterial(params, tileMesh.material);
-			const geometry = await this.loadGeometry(params, tileMesh.geometry);
+			const geometry = new TileGeometry();
 
 			//set material array
 			geometry.clearGroups();
@@ -155,42 +145,6 @@ export class TileLoader implements ITileLoader {
 		} finally {
 			this._downloadingThreads -= count;
 		}
-	}
-
-	/**
-	 * Load geometry
-	 * @returns BufferGeometry
-	 */
-	protected async loadGeometry(params: TileLoadParamsType, tileGeometry?: BufferGeometry): Promise<BufferGeometry> {
-		// no dem source or out of bounds
-		if (!this.demSource || !this._checkBounds(this.demSource, params)) {
-			return new TileGeometry();
-		}
-
-		// source not changed
-		if (tileGeometry && tileGeometry.userData.source === this.demSource) {
-			return tileGeometry;
-		}
-
-		// get loader
-		const loader = LoaderFactory.getGeometryLoader(this.demSource);
-
-		// load geometry
-		const geometry = await loader
-			.load({ source: this.demSource, ...params })
-			.then(geo => {
-				geo.userData.source = this.demSource;
-				return geo;
-			})
-			.catch(e => {
-				if (this.debug > 0) {
-					console.error("Load Geometry Error:", e);
-				}
-				return new TileGeometry();
-			});
-
-		return geometry;
-		// return new PlaneGeometry();
 	}
 
 	/**

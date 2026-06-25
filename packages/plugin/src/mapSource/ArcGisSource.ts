@@ -15,19 +15,3 @@ export class ArcGisSource extends TileSource {
 		Object.assign(this, options);
 	}
 }
-
-/**
- * ArcGis terrain datasource
- */
-export class ArcGisDemSource extends TileSource {
-	public dataType: string = "lerc";
-	public attribution = "ArcGIS";
-	public minLevel = 5;
-	public maxLevel = 13;
-	public url =
-		"https://server.arcgisonline.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer/tile/{z}/{y}/{x}";
-	constructor(options?: SourceOptions) {
-		super(options);
-		Object.assign(this, options);
-	}
-}

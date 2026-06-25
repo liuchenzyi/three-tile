@@ -19,16 +19,8 @@ export * from "./source";
 // map
 export * from "./map";
 
-import { BufferGeometry, Material } from "three";
-import {
-	ITileGeometryLoader,
-	ITileMaterialLoader,
-	LoaderFactory,
-	TileImageLoader,
-	TerrainRGBLoader,
-	TerrainLercLoader,
-	TerrainDEMLoader,
-} from "./loader";
+import { Material } from "three";
+import { ITileMaterialLoader, LoaderFactory, TileImageLoader } from "./loader";
 
 /**
  * 等待某个条件成立后继续执行
@@ -60,31 +52,12 @@ export function registerImgLoader(loader: ITileMaterialLoader) {
 }
 
 /**
- * 注册地形加载器
- * @param loader 要注册的地形加载器
- * @returns 加载器
- */
-export function registerDEMLoader(loader: ITileGeometryLoader) {
-	LoaderFactory.registerGeometryLoader(loader);
-	return loader;
-}
-
-/**
  * 取得影像加载器
  * @param dateType 数据类型
  * @returns 加载器
  */
 export function getImgLoader<T extends ITileMaterialLoader<Material>>(dateType: string) {
 	return LoaderFactory.getMaterialLoader(dateType) as T;
-}
-
-/**
- * 取得地形加载器
- * @param dateType 数据类型
- * @returns 加载器
- */
-export function getDEMLoader<T extends ITileGeometryLoader<BufferGeometry>>(dateType: string) {
-	return LoaderFactory.getGeometryLoader(dateType) as T;
 }
 
 /**
@@ -99,12 +72,6 @@ export function getTileLoaders() {
 function registerLoader() {
 	// 注册影像加载器
 	registerImgLoader(new TileImageLoader());
-	// 注册Terrain-RGB地形加载器
-	registerDEMLoader(new TerrainRGBLoader());
-	// 注册Arcgis-Lerc地形加载器
-	registerDEMLoader(new TerrainLercLoader());
-
-	registerDEMLoader(new TerrainDEMLoader());
 }
 
 // 注册内置加载器

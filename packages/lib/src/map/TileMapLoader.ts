@@ -28,20 +28,9 @@ export class TileMapLoader extends TileLoader implements ITileMapLoader {
 		this._updateImgProjBounds();
 	}
 
-	public get demSource() {
-		return super.demSource;
-	}
-
-	public set demSource(source: ISource | undefined) {
-		super.demSource = source;
-		// 计算source的投影范围
-		this._updateDemPrjBounds();
-	}
-
 	public set bounds(value: BoundsType) {
 		this.bounds = value;
 		this._updateImgProjBounds();
-		this._updateDemPrjBounds();
 	}
 
 	public get bounds(): BoundsType {
@@ -56,14 +45,6 @@ export class TileMapLoader extends TileLoader implements ITileMapLoader {
 		});
 	}
 
-	private _updateDemPrjBounds() {
-		const proj = this._projection;
-		if (this.demSource) {
-			// 计算数据源投影范围
-			this.demSource._projectionBounds = proj.getProjBoundsFromLonLat(this.demSource.bounds || this.bounds);
-		}
-	}
-
 	public get projection() {
 		return this._projection;
 	}
@@ -72,7 +53,6 @@ export class TileMapLoader extends TileLoader implements ITileMapLoader {
 		this._projection = projection;
 		// 更新source的投影范围
 		this._updateImgProjBounds();
-		this._updateDemPrjBounds();
 	}
 
 	public async load(params: TileLoadParamsType): Promise<TileMesh> {
