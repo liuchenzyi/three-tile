@@ -1,7 +1,6 @@
 export * from "./GLViewer";
 export * from "./compass";
 export * from "./mapSource";
-export * from "./fakeEarth";
 export * from "./fog";
 export * from "./limitCameraHeight";
 
