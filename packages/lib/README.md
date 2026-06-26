@@ -141,8 +141,7 @@ yarn add three-tile -S
 					// 影像数据源
 					imgSource: imgSource,
 					// 地形数据源
-					demSource: demSource,
-					lon0: 90,
+					demSource: demSource
 				});
 
 				return map;
@@ -183,8 +182,6 @@ interface MapParams {
 	imgSource: ISource[] | ISource;
 	// 地形数据源（可选）,默认undefined
 	demSource?: ISource;
-	// 中央子午线经度,默认0
-	lon0?: 0 | 90 | -90;
 	// 最小缩放级别,默认2
 	minLevel?: number;
 	// 地图范围 [minLon, minLat, maxLon, maxLat]
@@ -240,7 +237,6 @@ interface SourceOptions {
 interface MapParams {
 	imgSource: ISource[] | ISource; // 影像数据源
 	demSource?: ISource; // 地形数据源（可选）
-	lon0?: 0 | 90 | -90; // 中央子午线经度
 	minLevel?: number; // 最小缩放级别
 	maxLevel?: number; // 最大缩放级别（废弃，自动计算）
 	bounds?: [number, number, number, number]; // 地图范围 [minLon, minLat, maxLon, maxLat]
@@ -354,7 +350,6 @@ const map = new TileMap({
 	imgSource: imgSource,
 	demSource: demSource,
 	bounds: [73.66, 3.86, 135.08, 53.55], // [minLon, minLat, maxLon, maxLat]
-	lon0: 90,
 });
 
 // 获取投影边界

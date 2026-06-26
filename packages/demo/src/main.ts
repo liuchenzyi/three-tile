@@ -60,8 +60,6 @@ function createMap() {
 	const map = new tt.TileMap({
 		// 影像数据源
 		imgSource: imgSource,
-		// 地图投影中央经线经度
-		lon0: 0,
 		// 最小缩放级别
 		minLevel: 2,
 		// 最大缩放级别，废弃
