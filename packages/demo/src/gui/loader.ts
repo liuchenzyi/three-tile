@@ -6,18 +6,6 @@ import * as plugin from "three-tile-plugin";
 
 export const createLoaderGui = (gui: GUI, viewer: plugin.GLViewer, map: tt.TileMap) => {
 	const vm = {
-		lon90: () => {
-			map.lon0 = 90;
-			viewer.controls.reset();
-		},
-		lon0: () => {
-			map.lon0 = 0;
-			viewer.controls.reset();
-		},
-		lon_90: () => {
-			map.lon0 = -90;
-			viewer.controls.reset();
-		},
 		export: () => {
 			const exporter = new GLTFExporter();
 			exporter.parse(
@@ -46,10 +34,7 @@ export const createLoaderGui = (gui: GUI, viewer: plugin.GLViewer, map: tt.TileM
 	folder.add(map, "maxThreads", 1, 20, 1).name("最大线下载程数");
 	folder.add(map, "reload").name("重新加载地图");
 
-	folder.add(vm, "lon90").name("亚洲(中央子午线: 90°)");
-	folder.add(vm, "lon0").name("欧洲(中央子午线: 0°)");
-	folder.add(vm, "lon_90").name("美洲(中央子午线: -90°)");
-	folder.add(vm, "export").name("Export").name("导出地图模型");
+	folder.add(vm, "export").name("导出地图模型");
 
 	return gui;
 };

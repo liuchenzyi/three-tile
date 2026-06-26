@@ -18,9 +18,9 @@ export class ProjWGS extends Projection implements IProjection {
 	public mapDepth = 1; //height scale
 
 	public project(lon: number, lat: number): { x: number; y: number } {
-		return { x: (lon - this.lon0) * 100 * 1000, y: lat * 100 * 1000 };
+		return { x: lon * 100 * 1000, y: lat * 100 * 1000 };
 	}
 	public unProject(x: number, y: number): { lon: number; lat: number } {
-		return { lon: x / (100 * 1000) + this.lon0, lat: y / (100 * 1000) };
+		return { lon: x / (100 * 1000), lat: y / (100 * 1000) };
 	}
 }

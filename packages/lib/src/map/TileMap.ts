@@ -20,9 +20,6 @@ export interface LocationInfo extends Intersection {
 	location: Vector3;
 }
 
-/** 地图中央子午线经度类型 */
-type ProjectCenterLongitude = 0 | 90 | -90;
-
 /** 地图创建参数 */
 export type MapParams = {
 	/** 开启调试模式, debug mode: 0: off, 1... */
@@ -37,8 +34,6 @@ export type MapParams = {
 	bounds?: BoundsType;
 	/** 地图最小缩放级别, maximum zoom level of the map */
 	minLevel?: number;
-	/** 中央子午线经度, map centralMeridian longitude */
-	lon0?: ProjectCenterLongitude;
 
 	/** @deprecated  背景色，已废弃，使用background插件 */
 	backgroundColor?: ColorRepresentation;
@@ -94,22 +89,6 @@ export class TileMap extends Object3D<TileMapEventMap> {
 		this._maxLevel = value;
 	}
 
-	/** 取得中央子午线经度 */
-	public get lon0() {
-		return this.projection.lon0;
-	}
-
-	/** 设置中央子午线经度，中央子午线决定了地图的投影中心经度，可设置为-90，0，90，默认为0 */
-	public set lon0(value) {
-		if (this.projection.lon0 !== value) {
-			if (value != 0 && this.minLevel < 1) {
-				console.warn(`Map centralMeridian is ${this.lon0}, minLevel must > 0`);
-			}
-			this.projection = ProjectFactory.createFromID(this.projection.ID, value);
-			this._updateSource();
-		}
-	}
-
 	/** 取得地图投影对象 */
 	public get projection(): IProjection {
 		return this.loader.projection;
@@ -117,13 +96,13 @@ export class TileMap extends Object3D<TileMapEventMap> {
 
 	/** 设置地图投影对象 */
 	private set projection(proj: IProjection) {
-		if (proj.ID != this.projection.ID || proj.lon0 != this.lon0) {
+		if (proj.ID != this.projection.ID) {
 			this.loader.projection = proj;
 			this._resize();
 			// 重新加载模型
 			this.reload();
 			if (this.debug > 0) {
-				console.log("Map Projection Changed:", proj.ID, proj.lon0);
+				console.log("Map Projection Changed:", proj.ID);
 			}
 			this.dispatchEvent({
 				type: "projection-changed",
@@ -147,7 +126,7 @@ export class TileMap extends Object3D<TileMapEventMap> {
 		this.loader.imgSource = sources;
 
 		// 将第一个影像层的投影设置为地图投影
-		this.projection = ProjectFactory.createFromID(sources[0].projectionID, this.projection.lon0);
+		this.projection = ProjectFactory.createFromID(sources[0].projectionID);
 
 		if (this.debug > 0) {
 			console.log("Img Source Changed:", sources);
@@ -209,7 +188,6 @@ export class TileMap extends Object3D<TileMapEventMap> {
 			minLevel = 2,
 			imgSource,
 			bounds,
-			lon0 = 0,
 			debug = 0,
 		} = params;
 
@@ -220,7 +198,6 @@ export class TileMap extends Object3D<TileMapEventMap> {
 		// 地图范围
 		bounds && (this.loader.bounds = bounds);
 		this.debug = this.loader.debug = debug;
-		this.lon0 = lon0;
 
 		// 数据源
 		this.imgSource = imgSource;
@@ -352,8 +329,8 @@ export class TileMap extends Object3D<TileMapEventMap> {
 	}
 	/**
 	 * 地图模型坐标转换为地理坐标(与pos2geo同功能)
-	 * @param map 模型坐标
 	 * @returns 地理坐标（经纬度）
+	 * @param pos
 	 */
 	public map2geo(pos: Vector3) {
 		const position = this.projection.unProject(pos.x, pos.y);

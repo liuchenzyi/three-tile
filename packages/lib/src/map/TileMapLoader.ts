@@ -11,7 +11,7 @@ import { IProjection, ProjMCT } from "./projection";
 
 /** 地图瓦片加载器，ITileLoader基础上增加地图投影属性 */
 export class TileMapLoader extends TileLoader implements ITileMapLoader {
-	private _projection: IProjection = new ProjMCT(0);
+	private _projection: IProjection = new ProjMCT();
 
 	constructor() {
 		super();
@@ -68,13 +68,9 @@ export class TileMapLoader extends TileLoader implements ITileMapLoader {
 			throw new Error("projection is undefined");
 		}
 		const { x, y, z } = params;
-		// 计算投影后的瓦片x坐标
-		const newX = this._projection.getTileXWithCenterLon(x, z);
-		// 计算瓦片投影范围
 		const bounds = this._projection.getProjBoundsFromXYZ(x, y, z);
-		// 计算瓦片经纬度范围
 		const lonLatBounds = this._projection.getLonLatBoundsFromXYZ(x, y, z);
 
-		return { x: newX, y, z, bounds, lonLatBounds };
+		return { x, y, z, bounds, lonLatBounds };
 	}
 }
