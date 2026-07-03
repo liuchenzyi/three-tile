@@ -61,20 +61,20 @@
 		"docs": "pnpm --filter @three-tile/lib docs && pnpm --filter @three-tile/plugin docs"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "^20.5.0",
-		"@commitlint/config-conventional": "^20.5.0",
-		"@types/node": "^22.13.14",
-		"@types/three": "^0.184.1",
+		"@commitlint/cli": "^21.2.0",
+		"@commitlint/config-conventional": "^21.2.0",
+		"@types/node": "^26.1.0",
+		"@types/three": "^0.185.0",
 		"husky": "^9.1.7",
-		"lint-staged": "^16.4.0",
-		"oxfmt": "^0.43.0",
-		"oxlint": "^1.58.0",
-		"typedoc": "^0.28.16",
+		"lint-staged": "^17.0.8",
+		"oxfmt": "^0.57.0",
+		"oxlint": "^1.72.0",
+		"typedoc": "^0.28.19",
 		"typescript": "^6.0.3",
 		"vite": "8.1.3",
 		"vite-plugin-dts": "^5.0.3"
 	},
 	"peerDependencies": {
-		"three": "^0.184.0"
+		"three": "^0.185.0"
 	}
 }
