@@ -27,13 +27,13 @@
 	},
 	"description": "A lightweight tile map using threejs",
 	"scripts": {
-		"dev": "npm run dev --workspace=packages/demo",
-		"build": "npm run build:lib && npm run build:plugin && node copy-dist.cjs",
-		"build:lib": "npm run build --workspace=packages/lib",
-		"build:demo": "npm run build --workspace=packages/demo",
-		"build:plugin": "npm run build --workspace=packages/plugin",
+		"dev": "pnpm --filter three-tile-demo dev",
+		"build": "pnpm build:lib && pnpm build:plugin && node copy-dist.cjs",
+		"build:lib": "pnpm --filter @three-tile/lib build",
+		"build:demo": "pnpm --filter three-tile-demo build",
+		"build:plugin": "pnpm --filter @three-tile/plugin build",
 		"format": "prettier --write \"**/*.{ts,json,md}\"",
-		"docs": "npm run docs --workspace=packages/lib && npm run docs --workspace=packages/plugin"
+		"docs": "pnpm --filter @three-tile/lib docs && pnpm --filter @three-tile/plugin docs"
 	},
 	"devDependencies": {
 		"@types/node": "^22.13.14",
@@ -48,9 +48,6 @@
 	"peerDependencies": {
 		"three": "^0.184.0"
 	},
-	"workspaces": [
-		"packages/*"
-	],
 	"keywords": [
 		"three",
 		"gis",
