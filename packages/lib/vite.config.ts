@@ -4,13 +4,14 @@ import dts from "vite-plugin-dts";
 export default defineConfig({
 	plugins: [
 		dts({
-			outDir: ["./dist"],
-			rollupTypes: true,
+			outDir: ["../../dist"],
+			entryRoot: "./src",
 		}),
 	],
 	build: {
 		target: "es2020",
-		outDir: "./dist",
+		outDir: "../../dist",
+		emptyOutDir: true,
 		lib: {
 			entry: "./src/index.ts",
 			name: "ThreeTile",

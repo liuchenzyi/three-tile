@@ -28,7 +28,7 @@
 	"description": "A lightweight tile map using threejs",
 	"scripts": {
 		"dev": "pnpm --filter three-tile-demo dev",
-		"build": "pnpm build:lib && pnpm build:plugin && node copy-dist.cjs",
+		"build": "pnpm build:lib && pnpm build:plugin",
 		"build:lib": "pnpm --filter @three-tile/lib build",
 		"build:demo": "pnpm --filter three-tile-demo build",
 		"build:plugin": "pnpm --filter @three-tile/plugin build",

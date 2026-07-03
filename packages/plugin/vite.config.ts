@@ -10,7 +10,7 @@ export default defineConfig({
 	],
 	build: {
 		target: "ES2020",
-		outDir: "./dist",
+		outDir: "../../dist/plugin",
 		lib: {
 			entry: "./src/index.ts",
 			name: "ThreeTilePlugin",
