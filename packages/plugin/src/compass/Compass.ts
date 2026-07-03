@@ -1,4 +1,5 @@
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+
 import html from "./compass.txt?raw";
 
 /** 罗盘类 */

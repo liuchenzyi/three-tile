@@ -5,6 +5,7 @@
  */
 
 import { Texture } from "three";
+
 import { ITileMaterialLoader, TileLoadClipParamsType, TileSourceLoadParamsType } from ".";
 import { version } from "..";
 import { ITileMaterial, TileMaterial } from "../material";

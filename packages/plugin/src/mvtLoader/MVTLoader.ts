@@ -11,6 +11,7 @@ import {
 	VectorTileRender,
 	version,
 } from "three-tile";
+
 import { MVTSource } from "./MVTSource";
 
 export type StyleType = { layer: VectorStyle[] };

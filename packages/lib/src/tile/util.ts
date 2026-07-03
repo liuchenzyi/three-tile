@@ -4,8 +4,8 @@
  *@date: 2023-04-05
  */
 
-import { Tile } from "./Tile";
 import { ITileLoader } from "./ITileLoader";
+import { Tile } from "./Tile";
 
 /** 瓦片 LOD 结果 */
 export enum LODAction {

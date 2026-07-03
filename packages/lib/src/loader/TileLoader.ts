@@ -5,6 +5,7 @@
  */
 
 import { Material, Mesh, MeshBasicMaterial, Texture } from "three";
+
 import { TileGeometry } from "../geometry";
 import { ISource } from "../source";
 import { BoundsType, ITileLoader, TileLoadParamsType, TileMesh } from "./ITileLoaders";

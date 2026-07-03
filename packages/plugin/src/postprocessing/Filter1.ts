@@ -1,5 +1,5 @@
-import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { Camera, Scene, WebGLRenderer } from "three";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { HueSaturationShader, BrightnessContrastShader, ShaderPass, RenderPass } from "three/examples/jsm/Addons.js";
 
 export class Fillter {

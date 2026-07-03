@@ -20,6 +20,7 @@ export * from "./source";
 export * from "./map";
 
 import { Material } from "three";
+
 import { ITileMaterialLoader, LoaderFactory, TileImageLoader } from "./loader";
 
 /**

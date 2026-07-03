@@ -27,3 +27,4 @@ mydocs
 *.sw?
 
 testSource
+.codegraph

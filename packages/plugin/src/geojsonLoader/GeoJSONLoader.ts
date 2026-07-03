@@ -17,6 +17,7 @@ import {
 	version,
 	waitFor,
 } from "three-tile";
+
 import { GeoJSONSource } from "./GeoJSONSource";
 
 // const EmptyTexture = new TextureLoader().load(

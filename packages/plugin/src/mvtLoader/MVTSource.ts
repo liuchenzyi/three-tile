@@ -1,4 +1,5 @@
 import { SourceOptions, TileSource, VectorStyles } from "three-tile";
+
 import { StyleType } from "./MVTLoader";
 
 export type MVTSourceOptions = SourceOptions & { style?: { layer: VectorStyles } };

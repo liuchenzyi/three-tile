@@ -1,4 +1,5 @@
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+
 import { Compass } from "./Compass";
 export { Compass };
 

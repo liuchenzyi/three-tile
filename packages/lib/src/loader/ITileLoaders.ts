@@ -5,6 +5,7 @@
  */
 
 import { BufferGeometry, Material, Mesh } from "three";
+
 import { ISource } from "../source";
 import { TileLoadingManager } from "./TileLoadingManager";
 

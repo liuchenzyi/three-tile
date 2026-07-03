@@ -1,8 +1,7 @@
 import { BackSide, BoxGeometry, BoxHelper, Matrix4, Mesh, MeshLambertMaterial, Vector3 } from "three";
-import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js";
-
 import * as tt from "three-tile";
 import * as plugin from "three-tile-plugin";
+import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js";
 
 import * as ms from "../mapSource";
 

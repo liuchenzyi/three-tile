@@ -15,24 +15,25 @@ three-tile 是一个基于 Three.js 的轻量级瓦片地图库，采用 monorep
 ### 开发环境
 
 ```bash
-npm run dev                    # 启动 demo 开发服务器 (默认 workspace)
-npm run dev --workspace=packages/lib    # 监听构建 lib 包
-npm run dev --workspace=packages/plugin # 监听构建 plugin 包
+pnpm dev                       # 启动 demo 开发服务器 (默认 workspace)
+pnpm dev --filter @three-tile/lib    # 监听构建 lib 包
+pnpm dev --filter @three-tile/plugin # 监听构建 plugin 包
 ```
 
 ### 构建命令
 
 ```bash
-npm run build                  # 构建所有包（lib + plugin）并复制到根目录
-npm run build:lib              # 构建 lib 包 (tsc && vite build)
-npm run build:plugin           # 构建 plugin 包
-npm run build:demo             # 构建 demo 应用
+pnpm build                     # 构建所有包（lib + plugin）
+pnpm build:lib                 # 构建 lib 包 (vite build)
+pnpm build:plugin              # 构建 plugin 包 (tsc && vite build)
+pnpm build:demo                # 构建 demo 应用
 ```
 
 ### 代码质量检查
 
 ```bash
-npm run format                 # 使用 prettier 格式化所有 ts/json/md 文件
+npm run format                 # 使用 oxfmt 格式化所有文件
+npm run lint                   # 使用 oxlint 检查代码质量
 npm run build --workspace=packages/lib  # TypeScript 编译检查
 ```
 
@@ -94,7 +95,9 @@ npm run build --workspace=packages/demo    # 检查 demo 包编译
 
 - Three.js 作为 peerDependency (`"three": "0.171.0"`)
 - 构建工具: Vite 6 + TypeScript
-- 代码格式化: Prettier
+- 代码格式化: Oxfmt
+- 代码检查: Oxlint
+- Git Hooks: Husky + Lint-staged + Commitlint
 - 类型定义: @types/three
 
 ## 开发工具配置
@@ -111,13 +114,22 @@ npm run build --workspace=packages/demo    # 检查 demo 包编译
 - 外部依赖: three, three-tile
 - 生成类型定义文件
 
-### Prettier 配置
+### Oxfmt 配置
 
 - 缩进: 使用制表符，宽度2
 - 行宽: 120字符
 - 引号: 双引号
 - 分号: 必须
 - 尾随逗号: ES5
+- 箭头函数参数: 避免括号 (avoid)
+- 参考 `.oxfmtrc.json`
+
+### Commitlint 配置
+
+- 遵循 Conventional Commits 规范
+- 允许类型: feat, fix, docs, style, refactor, perf, test, build, ci, chore, remove
+- 提交信息长度限制: 72字符
+- 参考 `.commitlintrc.js`
 
 ## 测试指南
 

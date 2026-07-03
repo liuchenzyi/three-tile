@@ -5,9 +5,10 @@
  */
 
 import { CanvasTexture } from "three";
+
 import { ITileMaterialLoader, TileSourceLoadParamsType } from ".";
-import { ITileMaterial, TileMaterial } from "../material";
 import { version } from "..";
+import { ITileMaterial, TileMaterial } from "../material";
 
 /**
  * Canvas material loader abstract base class

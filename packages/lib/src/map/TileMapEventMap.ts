@@ -5,8 +5,9 @@
  */
 
 import { BaseEvent, Object3DEventMap } from "three";
-import { Tile } from "../tile";
+
 import { ISource } from "../source";
+import { Tile } from "../tile";
 import { IProjection } from "./projection";
 
 export interface TileMapEventMap extends Object3DEventMap {

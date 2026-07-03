@@ -141,7 +141,7 @@ yarn add three-tile -S
 					// 影像数据源
 					imgSource: imgSource,
 					// 地形数据源
-					demSource: demSource
+					demSource: demSource,
 				});
 
 				return map;

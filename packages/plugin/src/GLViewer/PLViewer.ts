@@ -6,6 +6,7 @@
 
 import { PerspectiveCamera, Vector3 } from "three";
 import { PointerLockControls } from "three/examples/jsm/controls/PointerLockControls.js";
+
 import { BaseViewer, ViewerOptions } from "./BaseViewer";
 
 let moveForward = false;

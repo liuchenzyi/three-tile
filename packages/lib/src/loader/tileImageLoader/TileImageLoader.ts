@@ -5,6 +5,7 @@
  */
 
 import { ImageLoader, SRGBColorSpace, Texture } from "three";
+
 import { LoaderFactory, TileLoadClipParamsType, TileMaterialLoader, getSubImage } from "..";
 import { version } from "../..";
 

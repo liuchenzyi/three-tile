@@ -4,8 +4,8 @@
  *@date: 2023-04-05
  */
 
-import { TileImageLoader } from "./TileImageLoader";
 import { registerImgLoader } from "../..";
+import { TileImageLoader } from "./TileImageLoader";
 export * from "./TileImageLoader";
 
 registerImgLoader(new TileImageLoader());

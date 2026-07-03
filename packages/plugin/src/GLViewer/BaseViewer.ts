@@ -16,7 +16,6 @@ import {
 	Timer,
 	WebGLRenderer,
 } from "three";
-
 import { update as teweenUpdate } from "three/examples/jsm/libs/tween.module.js";
 
 /**

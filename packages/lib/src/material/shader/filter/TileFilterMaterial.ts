@@ -5,6 +5,7 @@
  */
 
 import { ShaderMaterial, Texture, UniformsLib, UniformsUtils } from "three";
+
 import { ITileMaterial } from "../../TileMaterial";
 
 const vert = `

@@ -5,6 +5,7 @@
  */
 
 import { Camera, Timer, ColorRepresentation, Intersection, Object3D, Vector2, Vector3 } from "three";
+
 import { BoundsType } from "../loader";
 import { ISource } from "../source";
 import { Tile } from "../tile";

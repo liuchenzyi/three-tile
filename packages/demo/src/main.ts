@@ -1,11 +1,9 @@
 import { REVISION } from "three";
+import * as tt from "three-tile";
+import * as plugin from "three-tile-plugin";
 
 import * as gui from "./gui";
 import * as source from "./mapSource";
-
-import * as tt from "three-tile";
-import * as plugin from "three-tile-plugin";
-// import { testPolyHole } from "./test";
 
 // 注册加载器
 function registerLoader() {
@@ -28,14 +26,6 @@ function registerLoader() {
 	tt.registerImgLoader(new plugin.BackgroundLoader());
 
 	//===============================================================================
-
-	// 取得影像加载器
-	// const imgLoader = tt.getImgLoader<tt.TileImageLoader>("image");
-	// // 设置影像加载器的材质
-	// imgLoader.material = new MeshLambertMaterial({ color: 0x5555ff });
-
-	// 启用indexDB缓存
-	// plugin.IndexDBCacheEable();
 
 	console.log("======================================================");
 	console.log(`threejs V${REVISION}`);
@@ -67,7 +57,7 @@ function createMap() {
 		// 地图经纬度范围
 		// bounds: [60, 0, 145, 60],
 		// 调试标志
-		debug: 1,
+		// debug: 1,
 	});
 
 	// 地图旋转到xz平面
@@ -86,7 +76,6 @@ function initViewer(id: string, map: tt.TileMap) {
 	// 地图添加到场景
 	viewer.scene.add(map);
 
-
 	// 添加罗盘
 	const compass = plugin.createCompass(viewer.controls);
 	document.querySelector("#compass-container")?.appendChild(compass.dom);
@@ -101,16 +90,6 @@ function initViewer(id: string, map: tt.TileMap) {
 	});
 
 	viewer.renderer.localClippingEnabled = true;
-
-	// viewer.controls.addEventListener("start", () => {
-	// 	console.log("start");
-	// 	map.autoUpdate = true;
-	// });
-
-	// viewer.controls.addEventListener("end", () => {
-	// 	console.log("end");
-	// 	map.autoUpdate = false;
-	// });
 
 	plugin.limitPan(viewer.camera, viewer.controls, map);
 
@@ -135,33 +114,6 @@ function initGui(viewer: plugin.GLViewer, map: tt.TileMap) {
 	gui.showClickedTile(viewer, map);
 }
 
-// 动画漫游指定位置
-// function fly(viewer: plugin.GLViewer, map: tt.TileMap) {
-// 	// 地图中心坐标(经度，纬度，高度)
-// 	const centerGeo = new Vector3(110, 35, 0);
-// 	// 摄像坐标(经度，纬度，高度)
-// 	const camersGeo = new Vector3(110, 15, 4000 * 1000);
-// 	// 地图中心经纬度高度转为世界坐标
-// 	const centerPosition = map.geo2world(centerGeo);
-// 	// 摄像经纬度高度转为世界坐标
-// 	const cmaeraPosition = map.geo2world(camersGeo);
-// 	viewer.controls.enabled = false;
-// 	// 飞到指定位置
-// 	viewer.flyTo(centerPosition, cmaeraPosition, true, () => {
-// 		viewer.controls.enabled = true;
-// 	});
-// }
-
-// function addBounds(map: tt.TileMap) {
-// 	const bounds = map.bounds;
-// 	if (bounds) {
-// 		const projBounds = map.projection.getProjBoundsFromLonLat(bounds);
-// 		const box = new Box3(new Vector3(projBounds[0], projBounds[1], 0), new Vector3(projBounds[2], projBounds[3], 3000));
-// 		const boxHelper = new Box3Helper(box);
-// 		map.add(boxHelper);
-// 	}
-// }
-
 function main() {
 	// 注册加载器
 	registerLoader();
@@ -171,25 +123,6 @@ function main() {
 	const viewer = initViewer("#map", map);
 	// 初始化GUI
 	initGui(viewer, map);
-	// 摄像机动画移动到3000高度
-	// fly(viewer, map);
-	// 测试
-	// testTopMesh(viewer, map);
-	// testHole(viewer, map);
-	// testTileHelperBox(map);
-	// goHome(viewer, map);
-
-	// viewer.container?.addEventListener("pointerdown", evt => {
-	// 	const info = plugin.getLocalFromMouse(evt, map, viewer.camera);
-	// 	if (info) {
-	// 		addIcon(map, info);
-	// 	}
-	// });
-	// createGroundGroup(map);
-	// testShader();
-	// addBounds(map);
-
-	// testPolyHole(map, viewer);
 }
 
 main();

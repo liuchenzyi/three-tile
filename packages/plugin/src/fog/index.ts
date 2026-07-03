@@ -1,5 +1,6 @@
 import { ColorRepresentation } from "three";
 import { MapControls } from "three/examples/jsm/controls/MapControls.js";
+
 import { MapFog } from "./MapFog";
 export { MapFog };
 

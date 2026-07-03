@@ -1,7 +1,6 @@
-import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js";
-
 import * as tt from "three-tile";
 import * as plugin from "three-tile-plugin";
+import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js";
 
 export const createMapOptionsGui = (gui: GUI, viewer: plugin.GLViewer, map: tt.TileMap) => {
 	const folder = gui.addFolder("地图设置").close();

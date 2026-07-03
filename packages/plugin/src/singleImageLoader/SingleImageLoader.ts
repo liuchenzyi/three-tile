@@ -14,6 +14,7 @@ import {
 	TileSourceLoadParamsType,
 	version,
 } from "three-tile";
+
 import { SingleImageSource } from "./SingleImageSource";
 
 /**

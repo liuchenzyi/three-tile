@@ -5,6 +5,7 @@
  */
 
 import { FlyControls } from "three/examples/jsm/controls/FlyControls.js";
+
 import { BaseViewer, ViewerOptions } from "./BaseViewer";
 
 /**
